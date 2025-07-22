@@ -1,0 +1,70 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+h1 {
+    font-size: 45px;
+}
+h1, h2 {
+    color: #6a71a3;
+}
+
+.accordion {
+  background-color: #888ebe;
+  color: #ffffff;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 20px;
+  transition: 0.4s;
+  box-shadow: 2px 2px #172053;
+  border-radius: 5px;
+  margin: 5px 0 0 0;
+}
+.active, .accordion:hover {
+  background-color: #6a71a3;
+}
+.panel {
+  padding: 0 18px;
+  background-color: white;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+th:first-child, td:first-child {
+    white-space: nowrap;
+}
+
+.text {
+    height: 55px;
+    overflow: hidden;
+}
+.text.expanded {
+    height: 100%;
+    overflow: visible;
+}
+.show-more-btn {
+    display: block;
+    margin: 8px 0 0 0;
+    color: blue;
+    text-decoration: underline;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    font: inherit;
+    text-align: left;
+}

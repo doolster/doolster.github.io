@@ -1,12 +1,30 @@
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    margin-bottom: 40px;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-bottom: 40px;
 }
 h1 {
-    font-size: 45px;
+  font-size: 45px;
 }
 h1, h2 {
-    color: #6a71a3;
+  color: #6a71a3;
+}
+
+.expand-all-container {
+  display: flex;
+  justify-content: flex-end;
+}
+.expand-all {
+  margin-left: auto;
+  margin-right: 0px;
+  background-color: #888ebe;
+  color: #ffffff;
+  cursor: pointer;
+  padding: 10px;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+  box-shadow: 2px 2px #172053;
+  border-radius: 5px;
 }
 
 .accordion {
@@ -24,7 +42,7 @@ h1, h2 {
   border-radius: 5px;
   margin: 5px 0 0 0;
 }
-.active, .accordion:hover {
+.active, .accordion:hover, .expand-all:hover {
   background-color: #6a71a3;
 }
 .panel {
@@ -46,26 +64,33 @@ td, th {
   padding: 8px;
 }
 th:first-child, td:first-child {
-    white-space: nowrap;
+  white-space: nowrap;
+}
+td:last-child .text {
+  max-width: 850px;
+  width: 100%;
+  display: block;
+  word-break: break-word;
+  white-space: normal;
 }
 
 .text {
-    height: 55px;
-    overflow: hidden;
+  height: 55px;
+  overflow: hidden;
 }
 .text.expanded {
-    height: 100%;
-    overflow: visible;
+  height: 100%;
+  overflow: visible;
 }
 .show-more-btn {
-    display: block;
-    margin: 8px 0 0 0;
-    color: blue;
-    text-decoration: underline;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    font: inherit;
-    text-align: left;
+  display: block;
+  margin: 8px 0 0 0;
+  color: blue;
+  text-decoration: underline;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font: inherit;
+  text-align: left;
 }

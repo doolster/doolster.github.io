@@ -1,14 +1,20 @@
+// Places 'Past Talks' header after first accordion menu
+const pastTalks = document.createElement('h2');
+pastTalks.textContent = 'Past Talks';
+document.querySelector('.panel').insertAdjacentElement('afterend', pastTalks);
+
+
 // Accordion animation
-var acc = document.getElementsByClassName("accordion");
+var acc = document.getElementsByClassName('accordion');
 var i;
 for (i = 0; i < acc.length; i++) {
-  acc[i].addEventListener("click", function() {
-    this.classList.toggle("active");
+  acc[i].addEventListener('click', function() {
+    this.classList.toggle('active');
     var panel = this.nextElementSibling;
     if (panel.style.maxHeight) {
       panel.style.maxHeight = null;
     } else {
-      panel.style.maxHeight = panel.scrollHeight + "px";
+      panel.style.maxHeight = panel.scrollHeight + 'px';
     } 
   });
 }
@@ -52,7 +58,35 @@ document.querySelectorAll('.panel table').forEach(function(table) {
     });
 });
 
-// Places 'Past Talks' header after first accordion menu
-const pastTalks = document.createElement('h2');
-pastTalks.textContent = 'Past Talks';
-document.querySelector('.panel').insertAdjacentElement('afterend', pastTalks);
+// Opens first accordion on start
+var firstPanel = document.getElementsByClassName('panel')[0];
+firstPanel.style.maxHeight = firstPanel.scrollHeight + 'px';
+document.getElementsByClassName('accordion')[0].classList.toggle('active');
+
+// Opens first 'Show More' button on start
+var firstBtn = document.querySelector('.show-more-btn');
+if (firstBtn) {
+    var textDiv = firstBtn.previousSibling;
+    if (textDiv && textDiv.classList) {
+        textDiv.classList.add('expanded');
+        firstBtn.textContent = 'Show Less';
+        // Update panel height if inside accordion
+        let panel = firstBtn.closest('.panel');
+        if (panel) {
+            requestAnimationFrame(function() {
+                panel.style.maxHeight = panel.scrollHeight + "px";
+            });
+        }
+    }
+}
+
+// "Expand All" button functionality
+document.getElementById('expand-all-btn').addEventListener('click', function() {
+  for (i = 0; i < acc.length; i++) {
+    if (!acc[i].classList.contains('active')) {
+      var accPanel = acc[i].nextElementSibling;
+      accPanel.style.maxHeight = accPanel.scrollHeight + 'px';
+      acc[i].classList.toggle('active');
+    }
+  }
+});

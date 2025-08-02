@@ -30,21 +30,16 @@ document.querySelectorAll('.panel table').forEach(function(table) {
     let lastCell = cells[cells.length - 1];
     if (!lastCell.classList.contains('show-more-processed')) {
         lastCell.classList.add('show-more-processed');
-        // Wrap content in .text div
-        let textDiv = document.createElement('div');
-        textDiv.className = 'text';
-        while (lastCell.firstChild) {
-            textDiv.appendChild(lastCell.firstChild);
-        }
-        lastCell.appendChild(textDiv);
-        // Add button
-        let btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'show-more-btn';
-        btn.textContent = 'Show More';
+        let abst = lastCell.querySelector('.abstract');
+        // Make title into a button
+        let btn = lastCell.querySelector('.talk-title')
+        let img = new Image(10, 10);
+        img.src = 'images/expand-button.png';
+        img.style.marginInlineEnd = '5px';
+        btn.insertAdjacentElement('afterbegin', img);
         btn.addEventListener('click', function() {
-            let expanded = textDiv.classList.toggle('expanded');
-            btn.textContent = expanded ? 'Show Less' : 'Show More';
+            let expanded = abst.classList.toggle('expanded');
+            img.src = expanded ? 'images/retract-button.png' : 'images/expand-button.png';
             // Update panel height if inside accordion
             let panel = lastCell.closest('.panel');
             if (panel) {
@@ -53,7 +48,6 @@ document.querySelectorAll('.panel table').forEach(function(table) {
                 });
             }
         });
-        lastCell.appendChild(btn);
     }
     });
 });
@@ -64,12 +58,12 @@ firstPanel.style.maxHeight = firstPanel.scrollHeight + 'px';
 document.getElementsByClassName('accordion')[0].classList.toggle('active');
 
 // Opens first 'Show More' button on start
-var firstBtn = document.querySelector('.show-more-btn');
+var firstBtn = document.querySelector('.talk-title');
 if (firstBtn) {
-    var textDiv = firstBtn.previousSibling;
-    if (textDiv && textDiv.classList) {
-        textDiv.classList.add('expanded');
-        firstBtn.textContent = 'Show Less';
+    var abst = document.querySelector('.abstract');
+    if (abst && abst.classList) {
+        abst.classList.add('expanded');
+        firstBtn.childNodes[0].src = 'images/retract-button.png';
         // Update panel height if inside accordion
         let panel = firstBtn.closest('.panel');
         if (panel) {

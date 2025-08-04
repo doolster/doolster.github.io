@@ -2,7 +2,7 @@ fetch("SpeakerData.txt")
 .then((res) => res.text())
 // Run all code inside the ".then" so we can modify the content that is being added asynchonously (there's probably a better way to do this...)
 .then((rawText) => {
-  var lines = rawText.split('\r\n');
+  var lines = rawText.split('\n');
   if (lines[0].substring(0, 6) != "Term: ") {
     console.log("SpeakerData.txt not formatted correctly on line 0");
   };
@@ -110,7 +110,7 @@ fetch("SpeakerData.txt")
         //  newAbst.appendChild(newLink);
         //} else {
           newAbst.appendChild(document.createElement('br'))
-          newAbst.textContent += ("\r\n" + lines[i]);
+          newAbst.textContent += ("\n" + lines[i]);
         //}
         break;
       case (lines[i] == ""):

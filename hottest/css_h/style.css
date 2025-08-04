@@ -10,6 +10,7 @@ h1, h2 {
 }
 .icon {
   width: 20px;
+  margin: 0 2px 0 2px;
 }
 
 .expand-all-container {
@@ -64,7 +65,7 @@ td:last-child .abstract {
   width: 100%;
   display: block;
   word-break: break-word;
-  white-space: normal;
+  white-space: pre-line;
 }
 .talk-title {
   font-weight: bold;

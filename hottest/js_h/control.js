@@ -95,3 +95,12 @@ document.getElementById('expand-all-btn').addEventListener('click', function() {
 document.querySelectorAll('a').forEach((el) => {
     el.setAttribute('rel', 'noreferrer');
 });
+
+//const text = $.get('test.txt');
+//console.log(text);
+
+ var xhr = new XMLHttpRequest();
+    xhr.open("GET", "test.txt", true);
+    xhr.onload = function () {
+    console.log(xhr.responseText); };
+    xhr.send();

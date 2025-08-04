@@ -125,6 +125,8 @@ fetch("SpeakerData.txt")
   document.body.appendChild(newAcc);
   document.body.appendChild(newPanel);
 
+  console.log(lines);
+
 
 
 // Places 'Past Talks' header after first accordion menu

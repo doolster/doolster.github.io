@@ -35,7 +35,6 @@ fetch("SpeakerData.txt")
         newAcc = document.createElement("button");
         newAcc.classList.add('accordion');
         newAcc.textContent = lines[i].substring(6);
-
         newPanel = document.createElement('div');
         newPanel.classList.add('panel');
         newTable = document.createElement('table');
@@ -51,10 +50,8 @@ fetch("SpeakerData.txt")
         newTr.appendChild(newDateTh);
         newTr.appendChild(newSpeakerTh);
         newTr.appendChild(newTalkTh);
-
         i++;
         break;
-
       case (lines[i].substring(0, 6) == "Date: "):
         newTr = document.createElement('tr'); // Only create new tr element with date
         newDate = document.createElement('td');
@@ -124,9 +121,6 @@ fetch("SpeakerData.txt")
   }
   document.body.appendChild(newAcc);
   document.body.appendChild(newPanel);
-
-  console.log(lines);
-
 
 
 // Places 'Past Talks' header after first accordion menu

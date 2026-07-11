@@ -1931,7 +1931,7 @@ var CrFunctions = {
 
     GetString: function () {
         if (mon.cr == "*")
-            return mon.customCr.trim();
+            return mon.customCr.trim() + " " + mon.role;
         return mon.cr + " " + mon.role;
     }
 }

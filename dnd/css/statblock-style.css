@@ -77,8 +77,28 @@
     fill: #922610;
 }
 
+.challenge-rating {
+    font-weight: bold;
+}
+
 .creature-heading {
     margin: 0 0 10px;
+}
+
+.creature-heading .name-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0 0;
+}
+
+.creature-heading .name-row h1 {
+    margin: 0;
+}
+
+.creature-heading .name-row .property-line {
+    margin: 0;
 }
 
 .creature-heading h1 {

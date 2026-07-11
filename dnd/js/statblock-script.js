@@ -10,6 +10,7 @@ var mon = {
     hitDice: 5,
     armorName: "none",
     shieldBonus: 0,
+    shieldPlus: 0,
     natArmorBonus: 3,
     otherArmorDesc: "10 (armor)",
     speed: 30,
@@ -593,6 +594,7 @@ var FormFunctions = {
         // Armor Class
         $("#armor-input").val(mon.armorName);
         $("#shield-input").prop("checked", (mon.shieldBonus > 0 ? true : false));
+        $("#shield-plus").val(mon.shieldPlus);
         $("#natarmor-input").val(mon.natArmorBonus);
         $("#otherarmor-input").val(mon.otherArmorDesc);
         this.ShowHideOtherArmor();
@@ -1065,6 +1067,7 @@ var GetVariablesFunctions = {
         // Armor Class
         mon.armorName = $("#armor-input").val();
         mon.shieldBonus = $("#shield-input").prop("checked") ? 2 : 0;
+        mon.shieldPlus = parseInt($("#shield-plus").val()) || 0;
         mon.natArmorBonus = parseInt($("#natarmor-input").val());
         mon.otherArmorDesc = $("#otherarmor-input").val();
 
@@ -1655,17 +1658,17 @@ var StringFunctions = {
             return mon.otherArmorDesc;
         if (mon.armorName == "mage armor") {
             let mageAC = MathFunctions.GetAC(mon.armorName);
-            return mageAC + " (" + (mon.shieldBonus > 0 ? "shield, " : "") + (mageAC + 3) + " with _mage armor_)";
+            return mageAC + " (" + (mon.shieldBonus > 0 ? "shield" + (mon.shieldPlus > 0 ? " +" + mon.shieldPlus + ", " : ", ") : "") + (mageAC + 3) + " with _mage armor_)";
         }
         if (mon.armorName == "none")
-            return MathFunctions.GetAC(mon.armorName) + (mon.shieldBonus > 0 ? " (shield)" : "");
+            return MathFunctions.GetAC(mon.armorName) + (mon.shieldBonus > 0 ? " (shield" + (mon.shieldPlus > 0 ? " +" + mon.shieldPlus + ")" : ")") : "");
         return this.GetArmorString(mon.armorName, MathFunctions.GetAC(mon.armorName));
     },
 
     // Add a shield to the string if the monster has one
     GetArmorString: function (name, ac) {
         if (mon.shieldBonus > 0)
-            return ac + " (" + name + ", shield)";
+            return ac + " (" + name + ", shield" + (mon.shieldPlus > 0 ? " +" + mon.shieldPlus + ")" : ")");
         return ac + " (" + name + ")"
     },
 
@@ -1911,13 +1914,13 @@ var MathFunctions = {
         let armor = data.armors[armorNameCheck],
             dexBonus = MathFunctions.PointsToBonus(mon.dexPoints);
         if (armor) {
-            if (armor.type == "light") return armor.ac + dexBonus + mon.shieldBonus;
-            if (armor.type == "medium") return armor.ac + Math.min(dexBonus, 2) + mon.shieldBonus;
-            if (armor.type == "heavy") return armor.ac + mon.shieldBonus;
-            if (armorNameCheck == "natural armor") return 10 + dexBonus + mon.natArmorBonus + mon.shieldBonus;
+            if (armor.type == "light") return armor.ac + dexBonus + mon.shieldBonus + mon.shieldPlus;
+            if (armor.type == "medium") return armor.ac + Math.min(dexBonus, 2) + mon.shieldBonus + mon.shieldPlus;
+            if (armor.type == "heavy") return armor.ac + mon.shieldBonus + mon.shieldPlus;
+            if (armorNameCheck == "natural armor") return 10 + dexBonus + mon.natArmorBonus + mon.shieldBonus + mon.shieldPlus;
             if (armorNameCheck == "other") return "other";
         }
-        return 10 + dexBonus + mon.shieldBonus;
+        return 10 + dexBonus + mon.shieldBonus + mon.shieldPlus;
     },
 }
 

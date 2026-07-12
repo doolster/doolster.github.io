@@ -9,6 +9,7 @@ var mon = {
     role: "",
     hitDice: 5,
     armorName: "none",
+    armorPlus: 0,
     shieldBonus: 0,
     shieldPlus: 0,
     natArmorBonus: 3,
@@ -593,6 +594,7 @@ var FormFunctions = {
 
         // Armor Class
         $("#armor-input").val(mon.armorName);
+        $("#armor-plus").val(mon.armorPlus);
         $("#shield-input").prop("checked", (mon.shieldBonus > 0 ? true : false));
         $("#shield-plus").val(mon.shieldPlus);
         $("#natarmor-input").val(mon.natArmorBonus);
@@ -1066,6 +1068,7 @@ var GetVariablesFunctions = {
 
         // Armor Class
         mon.armorName = $("#armor-input").val();
+        mon.armorPlus = parseInt($("#armor-plus").val()) || 0;
         mon.shieldBonus = $("#shield-input").prop("checked") ? 2 : 0;
         mon.shieldPlus = parseInt($("#shield-plus").val()) || 0;
         mon.natArmorBonus = parseInt($("#natarmor-input").val());
@@ -1662,14 +1665,17 @@ var StringFunctions = {
         }
         if (mon.armorName == "none")
             return MathFunctions.GetAC(mon.armorName) + (mon.shieldBonus > 0 ? " (shield" + (mon.shieldPlus > 0 ? " +" + mon.shieldPlus + ")" : ")") : "");
-        return this.GetArmorString(mon.armorName, MathFunctions.GetAC(mon.armorName));
+        return this.GetArmorString(mon.armorName, mon.armorPlus, MathFunctions.GetAC(mon.armorName));
     },
 
     // Add a shield to the string if the monster has one
-    GetArmorString: function (name, ac) {
+    GetArmorString: function (name, plus, ac) {
+        out = ac + " (" + name;
+        if (plus > 0 && name != "natural armor")
+            out += " +" + plus;
         if (mon.shieldBonus > 0)
-            return ac + " (" + name + ", shield" + (mon.shieldPlus > 0 ? " +" + mon.shieldPlus + ")" : ")");
-        return ac + " (" + name + ")"
+            return out + ", shield" + (mon.shieldPlus > 0 ? " +" + mon.shieldPlus + ")" : ")");
+        return out + ")"
     },
 
     // Get the string displayed for the monster's HP
@@ -1914,9 +1920,9 @@ var MathFunctions = {
         let armor = data.armors[armorNameCheck],
             dexBonus = MathFunctions.PointsToBonus(mon.dexPoints);
         if (armor) {
-            if (armor.type == "light") return armor.ac + dexBonus + mon.shieldBonus + mon.shieldPlus;
-            if (armor.type == "medium") return armor.ac + Math.min(dexBonus, 2) + mon.shieldBonus + mon.shieldPlus;
-            if (armor.type == "heavy") return armor.ac + mon.shieldBonus + mon.shieldPlus;
+            if (armor.type == "light") return armor.ac + dexBonus + mon.shieldBonus + mon.shieldPlus + mon.armorPlus;
+            if (armor.type == "medium") return armor.ac + Math.min(dexBonus, 2) + mon.shieldBonus + mon.shieldPlus + mon.armorPlus;
+            if (armor.type == "heavy") return armor.ac + mon.shieldBonus + mon.shieldPlus + mon.armorPlus;
             if (armorNameCheck == "natural armor") return 10 + dexBonus + mon.natArmorBonus + mon.shieldBonus + mon.shieldPlus;
             if (armorNameCheck == "other") return "other";
         }
